@@ -101,15 +101,15 @@ void testCrudOperations() async {
     // Create items
     await _testCreateGuides();
 
-    // Filter by product
+    // Get guides filtered by tags
     var page = await _persistence.getPageByFilter(
-        null, FilterParams.fromValue({'product': 'Product 1'}), PagingParams());
+        null, FilterParams.fromValue({'tags': ['tag1']}), PagingParams());
     expect(page.data.length, 2);
 
-    // Filter by search
+    // Get guides filtered by status
     page = await _persistence.getPageByFilter(
-        null, FilterParams.fromValue({'search': '1'}), PagingParams());
-    expect(page.data.length, 2);
+        null, FilterParams.fromValue({'type': GUIDE3.type, 'app': GUIDE3.app, 'name': GUIDE3.name} ), PagingParams());
+    expect(page.data.length, 1);
   }    
 
 }

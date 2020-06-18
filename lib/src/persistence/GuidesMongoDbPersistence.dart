@@ -17,29 +17,36 @@ class GuidesMongoDbPersistence
 
     var criteria = [];
 
-    var search = filter.getAsNullableString('search');
-    if (search != null) {
-      var searchRegex = RegExp(search, caseSensitive: false);
-      var searchCriteria = [];
-      searchCriteria.add({ 'id': { r'$regex': searchRegex.pattern } });
-      searchCriteria.add({ 'product': { r'$regex': searchRegex.pattern } });
-      searchCriteria.add({ 'copyrights': { r'$regex': searchRegex.pattern } });
-      criteria.add({ r'$or': searchCriteria });
-    }
-
     var id = filter.getAsNullableString('id');
     if (id != null) {
       criteria.add({'_id': id});
     }
 
-    var product = filter.getAsNullableString('product');
-    if (product != null) {
-      criteria.add({'product': product});
+    var type = filter.getAsNullableString('type');
+    if (type != null) {
+      criteria.add({'type': type});
     }
 
-    var group = filter.getAsNullableString('group');
-    if (group != null) {
-      criteria.add({'group': group});
+    var app = filter.getAsNullableString('app');
+    if (app != null) {
+      criteria.add({ 'app': app });
+    }
+
+    var name = filter.getAsNullableString('name');
+    if (name != null) {
+      criteria.add({ 'name': name });
+    }
+
+    var status = filter.getAsNullableString('status');
+    if (status != null) {
+      criteria.add({ 'status': status });
+    }
+
+    // Search by tags
+    var tags = filter.getAsObject('tags');
+    if (tags) {
+      var searchTags = TagsProcessor.compressTags([tags]);
+      criteria.add({ 'all_tags': { r'$in': searchTags } });
     }
 
     return criteria.isNotEmpty ? {r'$and': criteria} : null;
