@@ -46,7 +46,7 @@ class GuidesPersistenceFixture {
 
   void _testCreateGuides() async {
     // Create the first guide
-    var guide = await _persistence.create(null, GUIDE2);
+    var guide = await _persistence.create(null, GUIDE1);
 
     expect(guide, isNotNull);
     expect(guide.status, 'new');

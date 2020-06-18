@@ -67,8 +67,8 @@ class GuideV1 implements IStringIdentifiable {
     max_ver = json['max_ver'];
     create_time = json['create_time']==null? null: DateTime.tryParse(json['create_time']);
     pages = json['pages'];
-    tags = json['tags'];
-    all_tags = json['all_tags'];
+    tags = json['tags'].cast<String>();
+    all_tags = json['all_tags'].cast<String>();
     status = json['status'];
     custom_hdr = json['custom_hdr'];
     custom_dat = json['custom_dat'];
