@@ -81,7 +81,7 @@ void main() {
 
       // Create the first guide
       var resp = await rest.post(url + '/v1/guides/create_guide',
-          headers: {'Content-Type': 'guide/json'},
+          headers: {'Content-Type': 'application/json'},
           body: json.encode({'guide': GUIDE1}));
       var guide = GuideV1();
       guide.fromJson(json.decode(resp.body));
@@ -91,7 +91,7 @@ void main() {
 
       // Create the second guide
       resp = await rest.post(url + '/v1/guides/create_guide',
-          headers: {'Content-Type': 'guide/json'},
+          headers: {'Content-Type': 'application/json'},
           body: json.encode({'guide': GUIDE2}));
       guide = GuideV1();
       guide.fromJson(json.decode(resp.body));
@@ -101,7 +101,7 @@ void main() {
 
       // Get all guides
       resp = await rest.post(url + '/v1/guides/get_guides',
-          headers: {'Content-Type': 'guide/json'},
+          headers: {'Content-Type': 'application/json'},
           body: json
               .encode({'filter': FilterParams(), 'paging': PagingParams()}));
       var page = DataPage<GuideV1>.fromJson(json.decode(resp.body), (item) {
@@ -118,7 +118,7 @@ void main() {
       guide1.app = 'New App 1';
 
       resp = await rest.post(url + '/v1/guides/update_guide',
-          headers: {'Content-Type': 'guide/json'},
+          headers: {'Content-Type': 'application/json'},
           body: json.encode({'guide': guide1}));
       guide = GuideV1();
       guide.fromJson(json.decode(resp.body));
@@ -128,7 +128,7 @@ void main() {
 
       // Delete the guide
       resp = await rest.post(url + '/v1/guides/delete_guide_by_id',
-          headers: {'Content-Type': 'guide/json'},
+          headers: {'Content-Type': 'application/json'},
           body: json.encode({'guide_id': guide1.id}));
       guide = GuideV1();
       guide.fromJson(json.decode(resp.body));
@@ -137,7 +137,7 @@ void main() {
 
       // Try to get deleted guide
       resp = await rest.post(url + '/v1/guides/get_guide_by_id',
-          headers: {'Content-Type': 'guide/json'},
+          headers: {'Content-Type': 'application/json'},
           body: json.encode({'guide_id': guide1.id}));
       expect(resp.body, isEmpty);
     });
