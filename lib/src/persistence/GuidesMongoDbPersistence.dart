@@ -44,7 +44,7 @@ class GuidesMongoDbPersistence
 
     // Search by tags
     var tags = filter.getAsObject('tags');
-    if (tags) {
+    if (tags!=null) {
       var searchTags = TagsProcessor.compressTags([tags]);
       criteria.add({ 'all_tags': { r'$in': searchTags } });
     }
